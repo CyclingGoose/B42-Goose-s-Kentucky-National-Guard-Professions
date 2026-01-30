@@ -1,0 +1,3 @@
+version=1
+title=Goose's Server Sound Mod
+description=a mod I made for a project zomboid event that lets admins play a meteorcrash sound from their players position with a command, the command is /playsound MeteorImpactSFX2

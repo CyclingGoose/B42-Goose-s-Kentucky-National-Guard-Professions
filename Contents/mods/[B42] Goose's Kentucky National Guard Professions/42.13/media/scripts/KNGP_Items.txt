@@ -1,0 +1,13 @@
+module KNGP {
+
+    item MilitaryIDCard
+    {
+        DisplayCategory = Junk,
+        Weight = 0.1,
+        ItemType = base:literature,
+        Icon = MilitaryIDCard,
+        WorldStaticModel = MilitaryIDCard,
+        Tags = base:idcard;base:uninteresting,
+    }
+
+}
