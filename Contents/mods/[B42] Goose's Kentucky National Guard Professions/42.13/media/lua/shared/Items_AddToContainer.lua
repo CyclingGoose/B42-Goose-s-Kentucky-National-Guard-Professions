@@ -10,6 +10,9 @@
 
 -- serves as a utils class
 
+--
+-- VANILLA ITEMS ONLY
+--
 function AddToContainer:addStandardRationsToContainer(inventory, container)
     for x=1, 5 do
         container:getItemContainer():AddItem("Base.Crackers");
@@ -119,3 +122,31 @@ function AddToContainer:addStandardMagazinesToContainer(inventory, container)
         container:getItemContainer():AddItem("Base.9mmClip"):setCurrentAmmoCount(15);
     end
 end
+--
+-- VANILLA ITEMS ONLY
+--
+
+--
+-- MOD FUNCTIONS: Alice Belts
+--
+
+function AddToContainer:addABRationsToContainer(inventory, container)
+    for x=1, 5 do
+        container:getItemContainer():AddItem("Base.Crackers");
+    end
+
+    for x=1, 2 do
+        container:getItemContainer():AddItem("Base.GranolaBar");
+        container:getItemContainer():AddItem("Base.CannedCornedBeef");
+        -- removed water bottles from AB rations to reflect the use of canteens
+        container:getItemContainer():AddItem("Base.BreadSlices");
+    end
+
+    container:getItemContainer():AddItem("Base.Teabag2");
+    container:getItemContainer():AddItem("Base.Chocolate");
+    container:getItemContainer():AddItem("CandyFruitSlices");
+end
+
+--
+-- MOD FUNCTIONS: Alice Belts
+--

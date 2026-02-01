@@ -10,7 +10,10 @@
 
 -- serves as a utils class
 
-function AddToInventory:addStandardWebbingToInventory(inventory)
+--
+-- VANILLA ITEMS ONLY
+--
+function AddToInventory:addStandardWebbingToInventory(inventory, webbing)
     webbing = inventory:AddItem("Base.Bag_ALICE_BeltSus_Camo");
     AddToContainer:addStandardMagazinesToContainer(inventory, webbing);
 end
@@ -22,7 +25,7 @@ function AddToInventory:addStandardGearToInventory(inventory, playername)
     inventory:AddItem("Base.EntrenchingTool");
 end
 
-function AddToInventory:addToolboxToInventory(inventory)
+function AddToInventory:addToolboxToInventory(inventory, toolbox)
     toolbox = inventory:AddItem("Base.Toolbox_Mechanic");
     AddToContainer:addToolsToContainer(inventory, toolbox);
 end
@@ -94,3 +97,57 @@ function AddToInventory:addStandardRationsToInventory(inventory)
     inventory:AddItem("Base.Chocolate");
     inventory:AddItem("CandyFruitSlices");
 end
+--
+-- VANILLA ITEMS ONLY
+--
+
+--
+-- MOD FUNCTIONS: Alice Belts
+--
+
+function AddToInventory:addABRationsToInventory(inventory)
+    for x=1, 5 do
+        inventory:AddItem("Base.Crackers");
+    end
+
+    for x=1, 2 do
+        inventory:AddItem("Base.GranolaBar");
+        inventory:AddItem("Base.CannedCornedBeef");
+         -- removed water bottles from AB rations to reflect the use of canteens
+        inventory:AddItem("Base.BreadSlices");
+    end
+             
+    inventory:AddItem("Base.Teabag2");
+    inventory:AddItem("Base.Chocolate");
+    inventory:AddItem("CandyFruitSlices");
+end
+
+function AddToInventory:addABGearToInventory(inventory, playername)
+    inventory:AddItem("ALICE.M9Bayonet");
+    inventory:AddItem("ALICE.M9BayonetSheath");
+    inventory:AddItem("ALICE.AliceCanteen")
+    inventory:AddItem("Base.Necklace_DogTag"):setName("Dog Tags: " .. playername);
+    inventory:AddItem("KNGP.MilitaryIDCard"):setName("Military ID Card: " .. playername);
+    inventory:AddItem("Base.EntrenchingTool");
+end
+
+function AddToInventory:addABWebbingToInventory(inventory, webbing)
+    webbing = inventory:AddItem("ALICE.AliceVest4P1C1ETight");
+    AddToContainer:addStandardMagazinesToContainer(inventory, webbing);
+end
+
+function AddToInventory:addABSatchelToInventory(inventory, satchel)
+    satchel = inventory:AddItem("ALICE.AliceFieldpack");
+    AddToContainer:addABRationsToContainer(inventory, satchel);
+    AddToContainer:addStandardGearToContainer(inventory, satchel);
+end
+
+function AddToInventory:addABTraumaBagToInventory(inventory, traumabag)
+    traumabag = inventory:AddItem("ALICE.AliceMedicalBag");
+    AddToContainer:addAdvancedFirstAidToContainer(inventory, traumabag);
+    traumabag:setName("Unit One Pack");
+end
+
+--
+-- MOD FUNCTIONS: Alice Belts
+--

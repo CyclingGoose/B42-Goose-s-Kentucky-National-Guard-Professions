@@ -16,34 +16,40 @@ require "registries";
 -- all of them are created outside of the main loadout function to avoid recreating them each time the function is called
 local backpackSetups = {
     standard = function(inventory)
-        AddToInventory:addStandardBackpackToInventory(inventory)
+        AddToInventory:addStandardBackpackToInventory(inventory, backpack)
     end,
     engineer = function(inventory)
-        AddToInventory:addCombatEngineerBackpackToInventory(inventory)
+        AddToInventory:addCombatEngineerBackpackToInventory(inventory, backpack)
     end,
     traumabag = function(inventory)
-        AddToInventory:addStandardTraumaBagToInventory(inventory)
+        AddToInventory:addStandardTraumaBagToInventory(inventory, traumabag)
     end,
     militarypolice = function(inventory)
-        AddToInventory:addMilitaryPoliceBackpackToInventory(inventory)
+        AddToInventory:addMilitaryPoliceBackpackToInventory(inventory, backpack)
     end,
 }
 
 local webbingSetups = {
     standard = function(inventory)
-        AddToInventory:addStandardWebbingToInventory(inventory)
+        AddToInventory:addStandardWebbingToInventory(inventory, webbing)
+    end,
+    alice = function(inventory)
+        AddToInventory:addABWebbingToInventory(inventory, webbing)
     end,
 }
 
 local satchelSetups = {
     standard = function(inventory)
-        AddToInventory:addStandardSatchelToInventory(inventory)
+        AddToInventory:addStandardSatchelToInventory(inventory, satchel)
+    end,
+    alice = function(inventory)
+        AddToInventory:addABSatchelToInventory(inventory, satchel)
     end,
 }
 
 local chestrigSetups = {
     standard = function(inventory)
-        AddToInventory:addStandardChestrigToInventory(inventory)
+        AddToInventory:addStandardChestrigToInventory(inventory, chestrig)
     end,
 }
 
@@ -55,21 +61,74 @@ local weaponSetups = {
 
 local toolboxSetups = {
     standard = function(inventory)
-        AddToInventory:addToolboxToInventory(inventory)
+        AddToInventory:addToolboxToInventory(inventory, toolbox)
     end,
 }
 
--- this table defines the loadout configuration for each profession, used in the loadoutByConfig function and defined outside of it to avoid recreating the table each time
-local professionConfig = {
+local gearSetups = {
+    standard = function(inventory, playername)
+        AddToInventory:addStandardGearToInventory(inventory, playername)
+    end,
+    alice = function(inventory, playername)
+        AddToInventory:addABGearToInventory(inventory, playername)
+    end,
+}
+
+
+-- these tables define the loadout configurations for each mod, if a certain mod is loaded a different config gets returned in getConfigForProfession(). Defined outside of the main function to avoid recreating the table each time
+-- a player spawns
+local professionConfigAB = {
     infantryman = {
-        gear = true,
+        gear = "alice",
+        backpack = "standard",
+        weapons = "standard",
+        ifak = true,
+        webbing = "alice",
+    },
+    combatmedic = {
+        gear = "alice",
+        backpack = "traumabag",
+        weapons = "standard",
+        satchel = "alice",
+        ifak = true,
+        webbing = "alice",
+    },
+    combatengineer = {
+        gear = "alice",
+        backpack = "engineer",
+        weapons = "standard",
+        ifak = true,
+        webbing = "alice",
+    },
+    militarypolice = {
+        gear = "alice",
+        backpack = "militarypolice",
+        weapons = "standard",
+        ifak = true,
+        webbing = "alice",
+        extraHelmet = true,
+    },
+    motortransportoperator = {
+        gear = "alice",
+        backpack = "standard",
+        weapons = "standard",
+        ifak = true,
+        toolbox = "standard",
+        webbing = "alice",
+        extraHelmet = true,
+    },
+}
+
+local professionConfigVanilla = {
+    infantryman = {
+        gear = "standard",
         backpack = "standard",
         weapons = "standard",
         ifak = true,
         chestrig = "standard",
     },
     combatmedic = {
-        gear = true,
+        gear = "standard",
         backpack = "traumabag",
         weapons = "standard",
         satchel = "standard",
@@ -77,14 +136,14 @@ local professionConfig = {
         chestrig = "standard",
     },
     combatengineer = {
-        gear = true,
+        gear = "standard",
         backpack = "engineer",
         weapons = "standard",
         ifak = true,
         chestrig = "standard",
     },
     militarypolice = {
-        gear = true,
+        gear = "standard",
         backpack = "militarypolice",
         weapons = "standard",
         ifak = true,
@@ -92,7 +151,7 @@ local professionConfig = {
         extraHelmet = true,
     },
     motortransportoperator = {
-        gear = true,
+        gear = "standard",
         backpack = "standard",
         weapons = "standard",
         ifak = true,
@@ -102,20 +161,127 @@ local professionConfig = {
     },
 }
 
+local function getConfigForProfession(professionName)
+    if getActivatedMods():contains("\\AliceGear") then
+        return professionConfigAB[professionName]
+    else
+        return professionConfigVanilla[professionName]
+    end
+end
+
+-- initalized outside of main function to avoid recreating the table each time
+-- used in setupGear(prof) to add items to inventory and equip certain clothing based on profession
+local professionDictionary = {
+            
+    infantryman = {
+        -- essentially their "special" item, just gets added to the inventory
+        inventory = {"Base.Screwdriver"},
+
+        -- what they will wear once they spawn
+        -- it does add it to the inventory first, then equips it
+        equip = {"Base.Vest_BulletArmy",
+            "Base.Trousers_CamoGreen",
+            "Base.Jacket_ArmyCamoGreen",
+            "Base.Hat_Army",
+            "Base.Tshirt_OliveDrab",
+            "Base.Shoes_ArmyBoots",
+            "Base.Gloves_FingerlessLeatherGloves_Black",
+            "Base.WristWatch_Left_DigitalBlack",
+            "Base.Socks_Heavy",
+            "Base.Boxers_White",
+            "Base.HolsterSimple_Green",
+            "Base.Vest_DefaultTEXTURE"},
+
+    },
+
+    combatmedic = {
+                
+        inventory = {"Base.Scalpel"},
+
+        equip = {"Base.Vest_BulletArmy",
+            "Base.Trousers_CamoGreen",
+            "Base.Jacket_ArmyCamoGreen",
+            "Base.Hat_Army",
+            "Base.Tshirt_OliveDrab",
+            "Base.Shoes_ArmyBoots",
+            "Base.Gloves_Surgical",
+            "Base.WristWatch_Left_DigitalBlack",
+            "Base.Socks_Heavy",
+            "Base.Boxers_White",
+            "Base.HolsterSimple_Green",
+            "Base.Vest_DefaultTEXTURE"},
+    },
+
+    combatengineer= {
+                
+        inventory = {"Base.Axe"},
+
+        equip = {"Base.Vest_BulletArmy",
+            "Base.Trousers_CamoGreen",
+            "Base.Jacket_ArmyCamoGreen",
+            "Base.Hat_Army",
+            "Base.Tshirt_OliveDrab",
+            "Base.Shoes_ArmyBoots",
+            "Base.Gloves_FingerlessLeatherGloves_Black",
+            "Base.WristWatch_Left_DigitalBlack",
+            "Base.Socks_Heavy",
+            "Base.Boxers_White",
+            "Base.HolsterSimple_Green",
+            "Base.Vest_DefaultTEXTURE"},
+    },
+
+    militarypolice = {
+                
+        inventory = {"Base.Nightstick"},
+
+        equip = {"Base.Vest_BulletPolice",
+            "Base.Trousers_CamoGreen",
+            "Base.Jacket_ArmyCamoGreen",
+            "Base.Hat_BeretArmy",
+            "Base.Hat_GasMask",
+            "Base.Tshirt_OliveDrab",
+            "Base.Shoes_ArmyBoots",
+            "Base.Gloves_FingerlessLeatherGloves_Black",
+            "Base.WristWatch_Left_DigitalBlack",
+            "Base.Socks_Heavy",
+            "Base.Boxers_White",
+            "Base.HolsterSimple_Green",
+            "Base.Vest_DefaultTEXTURE"},
+    },
+
+    motortransportoperator = {
+                
+        inventory = {"Base.Wrench"},
+
+        equip = {"Base.Trousers_CamoGreen",
+            "Base.Shirt_CamoGreen",
+            "Base.Tshirt_OliveDrab",
+            "Base.Shoes_ArmyBoots",
+            "Base.Gloves_FingerlessLeatherGloves_Black",
+            "Base.WristWatch_Left_DigitalBlack",
+            "Base.Socks_Heavy",
+            "Base.Boxers_White",
+            "Base.HolsterSimple_Green",
+            "Base.Vest_DefaultTEXTURE"},
+    },
+
+}
+
 -- centralized function to add items to inventory based on profession configuration
 local function loadoutByConfig(inventory, playername, prof)
-    local config = professionConfig[prof]
+
+    local config = getConfigForProfession(prof)
+
     if not config then return end
 
-    if config.gear then AddToInventory:addStandardGearToInventory(inventory, playername) end
-
-    -- looks up the backpack setup function from the backpackSetups table and call it if it exists
+    -- looks up the gear setup function from the gearSetups table and call it if it exists
     -- looks more complex than it is, but cleaner than a bunch of if-else statements
-    -- we need two checks here: one to see if a backpack is defined in the config, and another to see if that backpack setup exists in the backpackSetups table
-    -- then the specific backpack setup function is called, with the inventory as parameter as is usual
+    -- we need two checks here: one to see what gear is defined in the config, and another to see if that gear setup exists in the gearSetups table
+    -- then the specific gear setup function is called, with the inventory and playername as parameters
+    if config.gear and gearSetups[config.gear] then gearSetups[config.gear](inventory, playername) end
     if config.backpack and backpackSetups[config.backpack] then backpackSetups[config.backpack](inventory) end
     if config.weapons and weaponSetups[config.weapons] then weaponSetups[config.weapons](inventory) end
-    if config.ifak then AddToInventory:addStandardIFAKToInventory(inventory) end
+    if config.ifak then AddToInventory:addStandardIFAKToInventory(inventory, firstaidkit) end
     if config.chestrig then chestrigSetups[config.chestrig](inventory) end
     if config.toolbox then toolboxSetups[config.toolbox](inventory) end
     if config.satchel then satchelSetups[config.satchel](inventory) end
@@ -158,103 +324,6 @@ local function kngpGearPlayer(_player)
             loadoutByConfig(inventory, playername, prof)
              
         end
-
-        professionDictionary = {
-            
-           infantryman = {
-                -- essentially their "special" item, just gets added to the inventory
-                inventory = {"Base.Screwdriver"},
-
-                -- what they will wear once they spawn
-                -- it does add it to the inventory first, then equips it
-                equip = {"Base.Vest_BulletArmy",
-                    "Base.Trousers_CamoGreen",
-                    "Base.Jacket_ArmyCamoGreen",
-                    "Base.Hat_Army",
-                    "Base.Tshirt_OliveDrab",
-                    "Base.Shoes_ArmyBoots",
-                    "Base.Gloves_FingerlessLeatherGloves_Black",
-                    "Base.WristWatch_Left_DigitalBlack",
-                    "Base.Socks_Heavy",
-                    "Base.Boxers_White",
-                    "Base.HolsterSimple_Green",
-                    "Base.Vest_DefaultTEXTURE"},
-
-            },
-
-            combatmedic = {
-                
-                inventory = {"Base.Scalpel"},
-
-                equip = {"Base.Vest_BulletArmy",
-                    "Base.Trousers_CamoGreen",
-                    "Base.Jacket_ArmyCamoGreen",
-                    "Base.Hat_Army",
-                    "Base.Tshirt_OliveDrab",
-                    "Base.Shoes_ArmyBoots",
-                    "Base.Gloves_Surgical",
-                    "Base.WristWatch_Left_DigitalBlack",
-                    "Base.Socks_Heavy",
-                    "Base.Boxers_White",
-                    "Base.HolsterSimple_Green",
-                    "Base.Vest_DefaultTEXTURE"},
-            },
-
-            combatengineer= {
-                
-                inventory = {"Base.Axe"},
-
-                equip = {"Base.Vest_BulletArmy",
-                    "Base.Trousers_CamoGreen",
-                    "Base.Jacket_ArmyCamoGreen",
-                    "Base.Hat_Army",
-                    "Base.Tshirt_OliveDrab",
-                    "Base.Shoes_ArmyBoots",
-                    "Base.Gloves_FingerlessLeatherGloves_Black",
-                    "Base.WristWatch_Left_DigitalBlack",
-                    "Base.Socks_Heavy",
-                    "Base.Boxers_White",
-                    "Base.HolsterSimple_Green",
-                    "Base.Vest_DefaultTEXTURE"},
-            },
-
-            militarypolice = {
-                
-                inventory = {"Base.Nightstick"},
-
-                equip = {"Base.Vest_BulletPolice",
-                    "Base.Trousers_CamoGreen",
-                    "Base.Jacket_ArmyCamoGreen",
-                    "Base.Hat_BeretArmy",
-                    "Base.Hat_GasMask",
-                    "Base.Tshirt_OliveDrab",
-                    "Base.Shoes_ArmyBoots",
-                    "Base.Gloves_FingerlessLeatherGloves_Black",
-                    "Base.WristWatch_Left_DigitalBlack",
-                    "Base.Socks_Heavy",
-                    "Base.Boxers_White",
-                    "Base.HolsterSimple_Green",
-                    "Base.Vest_DefaultTEXTURE"},
-            },
-
-            motortransportoperator = {
-                
-                inventory = {"Base.Wrench"},
-
-                equip = {"Base.Trousers_CamoGreen",
-                    "Base.Shirt_CamoGreen",
-                    "Base.Tshirt_OliveDrab",
-                    "Base.Shoes_ArmyBoots",
-                    "Base.Gloves_FingerlessLeatherGloves_Black",
-                    "Base.WristWatch_Left_DigitalBlack",
-                    "Base.Socks_Heavy",
-                    "Base.Boxers_White",
-                    "Base.HolsterSimple_Green",
-                    "Base.Vest_DefaultTEXTURE"},
-            },
-
-        }
-
 
         if activate_loadouts then
             setupGear(prof);
