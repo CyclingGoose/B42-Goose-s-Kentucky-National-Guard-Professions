@@ -31,18 +31,18 @@ module KNGProfessions
         UIName = UI_prof_KNG_MilitaryPolice,
         UIDescription = UI_profdesc_KNG_MilitaryPolice,
         IconPathName = kngp_profession_default,
-        XPBoosts = Aiming=2;Reloading=1;Sprinting=2;Strength=1;Nimble=2;SmallBlunt=3;Sneak=2;Doctor=1,
+        XPBoosts = Aiming=2;Reloading=1;Sprinting=2;Strength=1;Nimble=2;SmallBlunt=2;Sneak=2;Doctor=1,
     }
 
     /* Kentucky National Guard Combat Engineer */
     character_profession_definition kngprofessions:combatengineer
     {
         CharacterProfession = kngprofessions:combatengineer,
-        Cost = -20,
+        Cost = -18,
         UIName = UI_prof_KNG_CombatEngineer,
         UIDescription = UI_profdesc_KNG_CombatEngineer,
         IconPathName = kngp_profession_default,
-        XPBoosts = Aiming=4;Reloading=2;Sprinting=2;Strength=2;Fitness=2;Nimble=2;SmallBlunt=3;Woodwork=2;Maintenance=2;Electricity=1;Axe=2;SmallBlunt=1;Doctor=1,
+        XPBoosts = Aiming=4;Reloading=2;Sprinting=2;Strength=3;Fitness=3;Nimble=1;Woodwork=2;Maintenance=1;Axe=1;SmallBlunt=1;Doctor=1,
         GrantedRecipes = MakeAerosolBomb;MakeFlameBomb;MakePipeBomb;MakeSmokeBomb,
     }
 
@@ -54,7 +54,7 @@ module KNGProfessions
         UIName = UI_prof_KNG_MotorTransportOperator,
         UIDescription = UI_profdesc_KNG_MotorTransportOperator,
         IconPathName = kngp_profession_default,
-        XPBoosts = Aiming=2;Reloading=1;Sprinting=2;Strength=2;Mechanics=3;SmallBlunt=1,
+        XPBoosts = Aiming=2;Reloading=1;Sprinting=2;Strength=2;Mechanics=3;SmallBlunt=1;Electricity=1;Fitness=1;Doctor=1,
         GrantedRecipes = Basic Mechanics;Intermediate Mechanics;Advanced Mechanics,
     }
 }

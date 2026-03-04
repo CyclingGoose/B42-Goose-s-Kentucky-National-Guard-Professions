@@ -48,9 +48,6 @@ function AddToContainer:addCombatEngineerGearToContainer(inventory, container)
         container:getItemContainer():AddItem("Base.PipeBombTriggered"); -- Pipe Bomb with Timer
         container:getItemContainer():AddItem("Base.PipeBomb");
     end
-
-    container:getItemContainer():AddItem("Base.BoltCutters");
-    container:getItemContainer():AddItem("Base.Sledgehammer2");
 end
 
 function AddToContainer:addStandardMilitaryPoliceGearToContainer(inventory, container, playername)
