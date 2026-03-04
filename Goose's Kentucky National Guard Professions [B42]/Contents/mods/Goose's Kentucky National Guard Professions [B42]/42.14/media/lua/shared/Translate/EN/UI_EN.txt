@@ -3,7 +3,7 @@ UI_EN = {
     UI_profdesc_KNG_Infantryman = "11 Bravo - Fight As Kentuckians"
 
     UI_prof_KNG_CombatMedic = "Kentucky National Guard Combat Medic"
-    UI_profdesc_KNG_CombatMedic = "68 Whiskey - Fight As Kentuckians"
+    UI_profdesc_KNG_CombatMedic = "91 Bravo - Fight As Kentuckians"
 
     UI_prof_KNG_MilitaryPolice = "Kentucky National Guard Military Police"
     UI_profdesc_KNG_MilitaryPolice = "95 Bravo - Fight As Kentuckians"
