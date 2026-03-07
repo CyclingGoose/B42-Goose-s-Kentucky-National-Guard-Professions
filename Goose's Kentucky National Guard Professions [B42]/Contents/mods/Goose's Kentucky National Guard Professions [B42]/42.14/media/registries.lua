@@ -7,7 +7,7 @@
 --
 -- SPDX-License-Identifier: MIT
 --
--- Copyright © 2025 CyclingGoose
+-- Copyright © 2026 CyclingGoose
 --
 -- see LICENSE.txt for full license text.
 --
