@@ -176,7 +176,7 @@ local professionConfigVanilla = {
 }
 
 local function getConfigForProfession(professionName)
-    if getActivatedMods():contains("\\AliceGear") then
+    if getActivatedMods():contains("AliceGear") then
         return professionConfigAB[professionName]
     else
         return professionConfigVanilla[professionName]
