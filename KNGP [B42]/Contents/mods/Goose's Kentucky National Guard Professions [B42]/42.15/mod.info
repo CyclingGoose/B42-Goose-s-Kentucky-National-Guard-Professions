@@ -2,8 +2,8 @@ name=Goose's Kentucky National Guard Professions
 id=kentuckynationalguardprofessionsgoose
 
 pzversion=42.15.0
-versionMin=42.13.0
-versionMax=42.15.0
+versionMin=42.15.0
+versionMax=42.15.1
 
 icon=icon.png
 poster=poster.png
