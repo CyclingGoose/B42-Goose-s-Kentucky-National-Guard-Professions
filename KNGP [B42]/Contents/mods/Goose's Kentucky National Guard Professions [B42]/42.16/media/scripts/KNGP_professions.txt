@@ -4,7 +4,7 @@ module KNGProfessions
     character_profession_definition kngprofessions:infantryman
     {
         CharacterProfession = kngprofessions:infantryman,
-        Cost = -12,
+        Cost = -10,
         UIName = UI_prof_KNG_Infantryman,
         UIDescription = UI_profdesc_KNG_Infantryman,
         IconPathName = kngp_profession_default,
@@ -15,7 +15,7 @@ module KNGProfessions
     character_profession_definition kngprofessions:combatmedic
     {
         CharacterProfession = kngprofessions:combatmedic,
-        Cost = -14,
+        Cost = -12,
         UIName = UI_prof_KNG_CombatMedic,
         UIDescription = UI_profdesc_KNG_CombatMedic,
         IconPathName = kngp_profession_default,
@@ -27,7 +27,7 @@ module KNGProfessions
     character_profession_definition kngprofessions:militarypolice
     {
         CharacterProfession = kngprofessions:militarypolice,
-        Cost = -14,
+        Cost = -12,
         UIName = UI_prof_KNG_MilitaryPolice,
         UIDescription = UI_profdesc_KNG_MilitaryPolice,
         IconPathName = kngp_profession_default,
@@ -39,7 +39,7 @@ module KNGProfessions
     character_profession_definition kngprofessions:combatengineer
     {
         CharacterProfession = kngprofessions:combatengineer,
-        Cost = -18,
+        Cost = -16,
         UIName = UI_prof_KNG_CombatEngineer,
         UIDescription = UI_profdesc_KNG_CombatEngineer,
         IconPathName = kngp_profession_default,
@@ -51,7 +51,7 @@ module KNGProfessions
     character_profession_definition kngprofessions:motortransportoperator
     {
         CharacterProfession = kngprofessions:motortransportoperator,
-        Cost = -12,
+        Cost = -10,
         UIName = UI_prof_KNG_MotorTransportOperator,
         UIDescription = UI_profdesc_KNG_MotorTransportOperator,
         IconPathName = kngp_profession_default,
@@ -63,7 +63,7 @@ module KNGProfessions
     character_profession_definition kngprofessions:singlechannelradiooperator
     {
         CharacterProfession = kngprofessions:singlechannelradiooperator,
-        Cost = -14,
+        Cost = -12,
         UIName = UI_prof_KNG_SingleChannelRadioOperator,
         UIDescription = UI_profdesc_KNG_SingleChannelRadioOperator,
         IconPathName = kngp_profession_default,
@@ -75,7 +75,7 @@ module KNGProfessions
     character_profession_definition kngprofessions:cbrnspecialist
     {
         CharacterProfession = kngprofessions:cbrnspecialist,
-        Cost = -12,
+        Cost = -10,
         UIName = UI_prof_KNG_CBRNSpecialist,
         UIDescription = UI_profdesc_KNG_CBRNSpecialist,
         IconPathName = kngp_profession_default,

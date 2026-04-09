@@ -22,15 +22,15 @@
 --
 
 function AddToInventory:addNormalPhotographToInventory(inventory)
-    local activate_lore = SandboxVars.KNGP.Lore;
-    if activate_lore then
-        GeneralFunctions:returnPhotographObjectByTypeInv(inventory, "normal", normalPhotographNames)
-    else end
+    local activate_loreitems = SandboxVars.KNGP.Lore;
+    if activate_loreitems then
+    GeneralFunctions:returnPhotographObjectByTypeInv(inventory, "normal", normalPhotographNames)
+    end
 end
 
 function AddToInventory:addKnoxEventPhotographToInventory(inventory)
-    local activate_lore = SandboxVars.KNGP.Lore;
-    if activate_lore then
+    local activate_loreitems = SandboxVars.KNGP.Lore;
+    if activate_loreitems then
         GeneralFunctions:returnPhotographObjectByTypeInv(inventory, "knoxEvent", knoxEventPhotographNames)
     else end
 end
@@ -40,6 +40,7 @@ function AddToInventory:addStandardWebbingToInventory(inventory, webbing)
 end
 
 function AddToInventory:addStandardGearToInventory(inventory, playername)
+    local activate_loreitems = SandboxVars.KNGP.Lore;
     inventory:AddItem("Base.KnifePocket");
     inventory:AddItem("Base.Necklace_DogTag"):setName("Dog Tags: " .. playername);
     inventory:AddItem("KNGP.MilitaryIDCard"):setName("Military ID Card: " .. playername);
@@ -124,6 +125,7 @@ function AddToInventory:addStandardSatchelToInventory(inventory, satchel)
 end
 
 function AddToInventory:addCBRNSatchelToInventory(inventory, satchel)
+    local activate_loreitems = SandboxVars.KNGP.Lore;
     satchel = inventory:AddItem("Base.Bag_Satchel_Military");
     AddToContainer:addStandardRationsToContainer(inventory, satchel);
     AddToContainer:addStandardGearToContainer(inventory, satchel);
@@ -179,6 +181,7 @@ function AddToInventory:addABRationsToInventory(inventory)
 end
 
 function AddToInventory:addABGearToInventory(inventory, playername)
+    local activate_loreitems = SandboxVars.KNGP.Lore;
     inventory:AddItem("ALICE.M9Bayonet");
     inventory:AddItem("ALICE.M9BayonetSheath");
     inventory:AddItem("ALICE.AliceCanteen")
@@ -191,7 +194,6 @@ function AddToInventory:addABGearToInventory(inventory, playername)
     end
 
     AddToInventory:addNormalPhotographToInventory(inventory);
-
 end
 
 function AddToInventory:addABWebbingToInventory(inventory, webbing)
@@ -205,6 +207,7 @@ function AddToInventory:addABSatchelToInventory(inventory, satchel)
 end
 
 function AddToInventory:addABCBRNSatchelToInventory(inventory, satchel)
+    local activate_loreitems = SandboxVars.KNGP.Lore;
     satchel = inventory:AddItem("ALICE.AliceFieldpack");
     AddToContainer:addABRationsToContainer(inventory, satchel);
     AddToContainer:addStandardGearToContainer(inventory, satchel);

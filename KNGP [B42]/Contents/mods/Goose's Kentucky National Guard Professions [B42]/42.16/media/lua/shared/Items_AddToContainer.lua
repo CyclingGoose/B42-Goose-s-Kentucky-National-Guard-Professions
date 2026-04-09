@@ -125,10 +125,14 @@ function AddToContainer:addAdvancedFirstAidToContainer(inventory, container)
 end
 
 function AddToContainer:addCBRNItemsToContainer(inventory, container)
+    local activate_loreitems = SandboxVars.KNGP.Lore;
     container:getItemContainer():AddItem("Base.Pen");
+    if activate_loreitems then
     local journal = container:getItemContainer():AddItem("Base.Journal");
     LoreFunctions:writeLoreInJournal("cbrn", journal);
-    
+    container:getItemContainer():AddItem("Base.SuspiciousPackage"):setName("Suspicious Package: Handle with Caution");
+    end
+
     for x = 1, 2 do
     container:getItemContainer():AddItem("Base.WaterPurificationTablets");
     container:getItemContainer():AddItem("Base.WaterRationCan");
@@ -136,7 +140,7 @@ function AddToContainer:addCBRNItemsToContainer(inventory, container)
     
     container:getItemContainer():AddItem("Base.HazmatSuit");
     container:getItemContainer():AddItem("Base.InsectRepellent");
-    container:getItemContainer():AddItem("Base.SuspiciousPackage"):setName("Suspicious Package: Handle with Caution");
+
 end
 
 function AddToContainer:addSCROItemsToContainer(inventory, container)

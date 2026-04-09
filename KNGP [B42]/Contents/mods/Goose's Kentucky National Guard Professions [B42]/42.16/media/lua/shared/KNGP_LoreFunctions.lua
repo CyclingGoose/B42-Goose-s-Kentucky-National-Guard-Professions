@@ -36,6 +36,17 @@ function LoreFunctions:writeLoreInJournal(type, journal)
     journal:setCanBeWrite(true);
     journal:addPage(1, journaltext.page_1);
     journal:addPage(2, journaltext.page_2);
+    journal:addPage(3, journaltext.page_3);
+    journal:addPage(4, journaltext.page_4);
+    journal:addPage(5, journaltext.page_5);
+    journal:addPage(6, journaltext.page_6);
+    journal:addPage(7, journaltext.page_7);
+    journal:addPage(8, journaltext.page_8);
+    journal:addPage(9, journaltext.page_9);
+    journal:addPage(10, journaltext.page_10);
+    journal:addPage(11, journaltext.page_11);
+    journal:addPage(12, journaltext.page_12);
+    journal:addPage(13, journaltext.page_13);
 
     journal:setName(journalname);
 end
